@@ -206,46 +206,46 @@
 }
 
 .cs-button {
-     position: relative;
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
     padding: 10px 25px;
-    
+
     /* Button Fill - Orange Gradient */
     background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
-    
+
     /* Button Stroke */
     border: 3px solid #FF8C42;
     border-radius: 25px;
-    
+
     /* Text Styling */
     color: #FFFFFF;
     font-size: 24px;
     font-weight: 600;
     text-decoration: none;
     letter-spacing: 0.5px;
-    
+
     /* Enhanced drop shadow */
-    box-shadow: 
+    box-shadow:
         0 0 0 rgba(255, 107, 53, 1),
         0 2px 4px rgba(255, 107, 53, 0.5),
         0 4px 12px rgba(255, 107, 53, 0.3),
         0 8px 24px rgba(255, 107, 53, 0.1);
-    
+
     transition: all 0.3s ease;
     cursor: pointer;
-    
+
     /* Font family for better text rendering */
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      opacity: 1;
+    opacity: 1;
 }
 
 .cs-button:hover {
     opacity: 1;
     transform: translateY(-3px);
-    box-shadow: 
+    box-shadow:
         0 0 0 rgba(255, 107, 53, 1),
         0 6px 12px rgba(255, 107, 53, 0.6),
         0 12px 24px rgba(255, 107, 53, 0.4),
@@ -768,7 +768,8 @@
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
-    object-position: top; /* <-- Add this line */
+    object-position: top;
+    /* <-- Add this line */
 }
 
 .author-name {
@@ -1019,4 +1020,226 @@ a.lightbox-trigger:hover {
     right: 0;
     width: 100%;
     height: 100%;
+}
+
+/* =================================================================== */
+/* ============= RESPONSIVE STYLES FOR CASE STUDY PAGE =============== */
+/* =================================================================== */
+
+@media (max-width: 992px) {
+
+    /* --- General adjustments for tablets --- */
+    .case-study-body .container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .case-study-title {
+        font-size: 2.5rem;
+        /* Make hero title smaller */
+    }
+
+    .case-study-subtitle {
+        font-size: 1.25rem;
+    }
+
+    .cs-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2x2 grid on tablets */
+    }
+
+    .cs-comparison-grid {
+        gap: 2rem;
+        /* Reduce gap between columns */
+    }
+}
+
+
+@media (max-width: 768px) {
+    /* --- Major layout changes for mobile phones --- */
+
+    /* Hero Section */
+    .hero-section {
+        padding-top: 200px;
+        /* Less padding on mobile */
+    }
+
+    .case-study-title {
+        font-size: 2rem;
+    }
+
+    /* Overview Section */
+    .cs-info-grid {
+        text-align: left;
+        /* Align grid text left for readability */
+    }
+
+    /* Challenge & Solution Section */
+    .cs-comparison-grid {
+        grid-template-columns: 1fr;
+        /* Stack columns vertically */
+        gap: 3rem;
+    }
+
+    .cs-comparison-grid::before {
+        display: none;
+        /* Hide the vertical divider line */
+    }
+
+    .cs-column-header h3 {
+        font-size: 1.2rem;
+        padding: 0.75rem 1.5rem;
+    }
+
+    /* Impact & Results Section */
+    .cs-impact-grid {
+        grid-template-columns: 1fr;
+        /* Stack impact cards */
+        gap: 1.5rem;
+    }
+
+    .cs-impact-card {
+        text-align: center;
+        /* Center content in stacked cards */
+    }
+
+    .cs-impact-card .cs-icon {
+        margin-left: auto;
+        margin-right: auto;
+        /* Center the icon */
+    }
+
+    /* Testimonial Section */
+    .testimonial-card {
+        padding: 1.5rem;
+    }
+
+    .testimonial-text {
+        font-size: 1.1rem;
+    }
+
+    .testimonial-author {
+        flex-direction: column;
+        /* Stack author image and name */
+        text-align: center;
+        gap: 1rem;
+    }
+
+    /* Image Grids */
+    .image-grid {
+        grid-template-columns: 1fr;
+        /* Stack images vertically */
+    }
+
+    .cs-bento-grid {
+        grid-template-columns: 1fr;
+        /* Stack all bento items */
+        grid-auto-rows: auto;
+    }
+
+    .cs-bento-grid .bento-item:nth-child(n) {
+        grid-column: span 1;
+        /* Ensure each item takes up one column */
+        height: 250px;
+    }
+}
+
+
+/* =================================================================== */
+/* ============= EXTRA STYLES FOR VERY SMALL SCREENS ================ */
+/* =================================================================== */
+
+@media (max-width: 400px) {
+
+    /* --- KEEP YOUR EXISTING RULES FOR THE CHALLENGE SECTION HERE --- */
+    .cs-column-header h3 {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .cs-challenge-item,
+    .cs-solution-category {
+        padding: 1rem;
+    }
+
+    .cs-challenge-item p,
+    .cs-solution-category p,
+    .cs-solution-category h4 {
+        font-size: 0.85rem;
+    }
+
+    /* ADD this inside your @media (max-width: 768px) block */
+.cs-conclusion-section p {
+        font-size: 0.8rem;
+        /* Adjusts conclusion text for very small screens */
+        line-height: 1.7;
+    }
+    .case-study-body p {
+        font-size: 0.8rem;
+        /* Adjusts paragraph text for tablets */
+        line-height: 1.7;
+    }
+
+    /* ▼▼▼ ADD THESE NEW RULES FOR THE TESTIMONIAL ▼▼▼ */
+
+    /* Reduce padding on the main card */
+    .testimonial-card {
+        padding: 1.25rem 1rem;
+    }
+
+    /* Make the large quote icon smaller */
+    .quote-icon {
+        width: 40px;
+    }
+
+    /* Make the main testimonial text smaller and more readable */
+    .testimonial-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Make the author's image smaller */
+    .author-img {
+        width: 50px;
+        height: 50px;
+    }
+
+    /* Make the author's name and role smaller */
+    .author-name {
+        font-size: 1rem;
+    }
+
+    .author-role {
+        font-size: 0.8rem;
+    }
+}
+
+/* =================================================================== */
+/* ============= GLOBAL PADDING FIX FOR CASE STUDY MOBILE ============ */
+/* =================================================================== */
+
+@media (max-width: 768px) {
+    /*
+      This rule targets all the main sections of your case study and
+      adds 1rem (about 16px) of padding on the left and right sides
+      to prevent content from touching the screen edges.
+    */
+    .cs-overview-section,
+    .cs-challenge-solution-section,
+    .cs-impact-results,
+    .two-images,
+    .testimonial-section,
+    .cs-conclusion-section,
+    .cs-bento-grid-section {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    /* We also remove padding from the .container inside these sections
+       to prevent double-padding issues. */
+    .case-study-body .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
