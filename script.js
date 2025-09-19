@@ -72,12 +72,22 @@
         window.addEventListener('load', function () {
             var sun = document.querySelector('.glow-background');
             if (sun) { sun.classList.add('sun-drop-in'); }
+
             var heading = document.querySelector('.main-heading');
             if (heading) { heading.classList.add('animate-in'); }
+
             var subtitle = document.querySelector('.hero-subtitle');
             if (subtitle) {
                 setTimeout(() => subtitle.classList.add('animate-in'), 400);
             }
+
+            // ▼▼▼ ADD THIS CODE BLOCK ▼▼▼
+            var heroButton = document.querySelector('.hero-section .build-button');
+            if (heroButton) {
+                setTimeout(() => heroButton.classList.add('animate-in'), 1800);
+            }
+            // ▲▲▲ END OF ADDED CODE ▲▲▲
+
             document.body.classList.add('loaded');
             const heroContent = document.querySelector('.hero-content');
             if (heroContent) { heroContent.classList.add('fade-in'); }
@@ -263,6 +273,8 @@
             init() {
                 this.setupEventListeners();
                 this.initMultiSelect();
+                this.handleFormSubmission();
+                this.setupLiveValidation();
             }
 
             initMultiSelect() {
@@ -371,6 +383,166 @@
                 const successMsg = document.querySelector('.success-message-quote');
                 if (successMsg) {
                     successMsg.style.display = 'none';
+                }
+            }
+            handleFormSubmission() {
+                const quoteForm = document.getElementById('quoteForm');
+                if (!quoteForm) return;
+
+                quoteForm.addEventListener('submit', (e) => {
+                    e.preventDefault(); // Prevent the form from submitting immediately
+                    const isValid = this.validateForm(quoteForm);
+
+                    if (isValid) {
+                        // If the form is valid, you can proceed with submission here.
+                        // For now, we'll just log it and show a success message.
+                        console.log('Form is valid and would be submitted.');
+                        this.showSuccessMessage();
+                    } else {
+                        console.log('Form has errors.');
+                    }
+                });
+            }
+
+            validateForm(form) {
+                let isValid = true;
+                this.clearAllErrors(form);
+
+                // --- Field validation ---
+                const name = form.querySelector('[name="name"]');
+                if (!this.validateRequired(name, 'Name is required.')) isValid = false;
+
+                const email = form.querySelector('[name="email"]');
+                if (!this.validateRequired(email, 'Email is required.')) {
+                    isValid = false;
+                } else if (!this.validateEmail(email, 'Please enter a valid email address.')) {
+                    isValid = false;
+                }
+
+                const phone = form.querySelector('[name="phone"]');
+                if (!this.validateRequired(phone, 'WhatsApp number is required.')) isValid = false;
+
+                const countryCode = form.querySelector('[name="country_code"]');
+                if (!this.validateRequired(countryCode, 'Please select a country code.')) isValid = false;
+
+                return isValid;
+            }
+
+            // --- Helper validation methods ---
+            validateRequired(field, message) {
+                if (!field.value.trim()) {
+                    this.showError(field, message);
+                    return false;
+                }
+                return true;
+            }
+
+            validateEmail(field, message) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(field.value)) {
+                    this.showError(field, message);
+                    return false;
+                }
+                return true;
+            }
+            // Paste this new function after validateEmail() inside the QuoteModal class
+
+            validatePhone(field, message) {
+                const phoneRegex = /^[0-9]+$/; // This regex checks for digits only
+                if (!phoneRegex.test(field.value)) {
+                    this.showError(field, message);
+                    return false;
+                }
+                return true;
+            }
+
+            showError(field, message) {
+                field.classList.add('invalid');
+                const errorContainer = field.closest('.form-group').querySelector('.error-message-quote');
+                if (errorContainer) {
+                    errorContainer.textContent = message;
+                    errorContainer.style.display = 'block';
+                }
+            }
+
+            clearAllErrors(form) {
+                form.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
+                form.querySelectorAll('.error-message-quote').forEach(el => {
+                    el.textContent = '';
+                    el.style.display = 'none';
+                });
+            }
+
+            showSuccessMessage() {
+                const quoteForm = document.getElementById('quoteForm');
+                const successMessage = document.querySelector('.success-message-quote');
+
+                if (quoteForm) quoteForm.style.display = 'none';
+                if (successMessage) successMessage.style.display = 'block';
+
+                // Optional: Hide the success message and show the form again after a few seconds
+                setTimeout(() => {
+                    if (successMessage) successMessage.style.display = 'none';
+                    if (quoteForm) {
+                        quoteForm.style.display = 'block';
+                        this.closeQuoteModal(); // Or just close the modal completely
+                    }
+                }, 4000); // 4 seconds
+            }
+            // Paste this code inside the QuoteModal class
+
+            setupLiveValidation() {
+                const form = document.getElementById('quoteForm');
+                if (!form) return;
+
+                // Validate fields as the user types
+                form.addEventListener('input', (e) => {
+                    const field = e.target;
+                    const fieldName = field.getAttribute('name');
+
+                    // Clear previous error for this specific field
+                    this.clearFieldError(field);
+
+                    // Perform validation based on the field name
+                    switch (fieldName) {
+                        case 'name':
+                            this.validateRequired(field, 'Name is required.');
+                            break;
+                        case 'email':
+                            if (this.validateRequired(field, 'Email is required.')) {
+                                this.validateEmail(field, 'Please enter a valid email address.');
+                            }
+                            break;
+                        case 'phone':
+                            if (this.validateRequired(field, 'WhatsApp number is required.')) {
+                                // This is the new check for numbers only
+                                this.validatePhone(field, 'Please enter numbers only.');
+                            }
+                            break;
+                        case 'country_code':
+                            this.validateRequired(field, 'Please select a country code.');
+                            break;
+                    }
+                });
+
+                // Also handle the character counter for the textarea
+                const messageTextarea = form.querySelector('textarea[name="message"]');
+                const charCounter = document.getElementById('charCounterQuote');
+                if (messageTextarea && charCounter) {
+                    messageTextarea.addEventListener('input', () => {
+                        const remaining = messageTextarea.maxLength - messageTextarea.value.length;
+                        charCounter.textContent = `${remaining} characters remaining`;
+                    });
+                }
+            }
+
+            // Helper function to clear a single field's error
+            clearFieldError(field) {
+                field.classList.remove('invalid', 'valid');
+                const errorContainer = field.closest('.form-group').querySelector('.error-message-quote');
+                if (errorContainer) {
+                    errorContainer.textContent = '';
+                    errorContainer.style.display = 'none';
                 }
             }
         }

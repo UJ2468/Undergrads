@@ -375,7 +375,7 @@ body {
 
 .main-heading {
     font-family: 'Lustria', serif;
-    font-size: clamp(3rem, 8vw, 6.25rem);
+    font-size: clamp(2.5rem, 7vw, 5rem); 
     /* Responsive font size */
     font-weight: 400;
     line-height: 1.1;
@@ -398,8 +398,9 @@ body {
     line-height: 1.6;
     letter-spacing: -0.02em;
     color: rgba(0, 0, 0, 0.8);
-    max-width: 540px;
-    margin: 0 auto;
+    max-width: 740px;
+    margin-bottom: 2rem;
+    margin: 2rem auto;
     opacity: 0;
     transform: translateY(60px);
     filter: blur(8px);
@@ -3760,24 +3761,7 @@ body {
 .footer-title h5 {
     margin: 0;
 }
-/* =================== FOOTER CONTACT BUTTON STYLE =================== */
-.QuoteButton {
-    background-color: #FA8E41;
-    color: white;
-    border: 2px solid #FA8E41;
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem; /* Adjusted size slightly */
-    border-radius: 0.4rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 600; /* Added for better visibility */
-}
-
-.QuoteButton:hover {
-    background-color: transparent;
-    border-color: #FA8E41;
-    color: #FA8E41;
-}
+/* =================== FOOTER CONTACT BUTTON STYleS =================== */
 /* This new rule targets all paragraphs in the footer for consistent font size */
 .footer-section p {
     font-size: 0.9rem; /* Adjust this value as needed */
@@ -3785,259 +3769,242 @@ body {
 }
 
 
-/* =================== QUOTE FORM STYLES =================== */
-.quote-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
+/* =================================================================== */
+/* ============= NEW - CLEAN CONSULTING FORM STYLES ================ */
+/* =================================================================== */
+/* =================================================================== */
+/* ============= NEW - DARK CONSULTING FORM STYLES ================= */
+/* =================================================================== */
+
+/* --- 1. VARIABLES: Easy-to-edit colors for customization --- */
+.quote-modal {
+    --dark-bg: #1E1E2F;           /* A deep, modern dark blue/charcoal */
+    --input-bg: #2D2D44;          /* A slightly lighter background for inputs */
+    --border-color: #4A4A6A;      /* Subtle border for inputs */
+    --accent-orange: #E8751A;     /* Your primary brand orange */
+    --accent-orange-focus: rgba(232, 117, 26, 0.25); /* For the glow effect */
+    --text-primary: #FFFFFF;      /* Main text color */
+    --text-secondary: #A0A0B8;    /* For placeholders and muted text */
+    --success-green: #28a745;
+    --error-red: #dc3545;
 }
 
-.quote-overlay.active {
-    opacity: 1;
-    visibility: visible;
+/* --- 2. MODAL & OVERLAY: The main pop-up container --- */
+.quote-overlay {
+    background: rgba(15, 15, 25, 0.7);
+    backdrop-filter: blur(10px);
+    /* --- Other styles remain the same --- */
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;
+    display: flex; align-items: center; justify-content: center; opacity: 0;
+    visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
 }
+.quote-overlay.active { opacity: 1; visibility: visible; }
 
 .quote-modal {
-    background: white;
-    border-radius: 20px;
+    font-family: 'Inter', sans-serif;
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    border-radius: 16px;
     width: 90%;
     max-width: 500px;
     max-height: 90vh;
     overflow-y: auto;
-    transform: scale(0.8);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    transform: scale(0.95);
     transition: transform 0.3s ease;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
+.quote-overlay.active .quote-modal { transform: scale(1); }
 
-.quote-overlay.active .quote-modal {
-    transform: scale(1);
-}
+/* --- 3. HEADER & DYNAMIC CONTENT (Corrected Version) --- */
 
+/* This brings back the header and styles it for the dark theme */
+/* =================================================================== */
+/* CORRECTED CSS FOR HEADER, PADDING, AND DYNAMIC CONTENT    */
+/* =================================================================== */
+
+/* --- FIX 1: Center the Header Title & Restore Padding --- */
 .quote-header {
-    padding: 25px 30px 20px;
-    border-bottom: 1px solid #eee;
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* This centers the title */
     align-items: center;
-    background: linear-gradient(135deg, #DE523A, #FA8E41);
-    color: white;
-    border-radius: 20px 20px 0 0;
+    position: relative; /* Required to position the close button correctly */
+    padding: 25px; /* Restores vertical and horizontal padding */
+    border-bottom: 1px solid var(--border-color);
+    background: transparent;
+    border-radius: 16px 16px 0 0;
 }
 
 .quote-header h3 {
     margin: 0;
-    font-size: 1.5rem;
+    color: var(--text-primary);
+    font-size: 1.25rem;
     font-weight: 600;
 }
 
+/* Position the close button on the right, independent of the title */
 .close-btn {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.close-btn i {
     color: white;
-    font-size: 1.5rem;
-    line-height: 1;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    /* We combine transforms to center it vertically and handle the hover rotation */
+    transform: translateY(-50%);
+    /* Other styles remain the same */
+    background: transparent; border: none; width: 32px; height: 32px;
+    border-radius: 50%; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; transition: all 0.3s ease;
 }
 
 .close-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: rotate(90deg);
+    background-color: var(--input-bg);
+    transform: translateY(-50%) rotate(90deg); /* Corrected hover effect */
 }
 
+
+/* --- FIX 2: Restore Padding to the Form Body --- */
 .quote-body {
-    padding: 30px;
+    padding: 30px 40px; /* Increased padding for more whitespace */
 }
 
+
+/* --- FIX 3: Remove Orange Highlight from Dynamic Content --- */
 .selected-product {
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 25px;
-    border-left: 4px solid #FA8E41;
+    background: var(--input-bg);
+    border: 4px solid var(--accent-orange);
+    padding: 15px 20px;
+    margin-bottom: 30px; /* Gives it space from the form fields */
+    border-radius: 6px;
 }
 
 .selected-product h4 {
     margin: 0 0 8px 0;
-    color: #FA8E41;
+    color: var(--text-primary); /* CHANGED: No longer orange */
     font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .selected-product p {
     margin: 0;
-    color: #666;
+    color: var(--text-secondary);
     font-size: 0.9rem;
+    line-height: 1.5;
 }
 
+
+
+/* --- 4. FORM INPUTS & FIELDS --- */
 .quote-form .form-group {
     margin-bottom: 20px;
 }
 
 .quote-form input,
 .quote-form textarea,
-.quote-form select {
-    width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #e1e5e9;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-    outline: none;
-}
-
-.quote-form input:focus,
-.quote-form textarea:focus,
-.quote-form select:focus {
-    border-color: #FA8E41;
-}
-
-.phone-group {
-    display: flex;
-    gap: 10px;
-}
-
-.phone-group select {
-    flex: 0 0 100px;
-}
-
-.phone-group input {
-    flex: 1;
-}
-
-.multi-select-container {
-    position: relative;
-    width: 100%;
-}
-
+.quote-form select,
 .select-box {
     width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #e1e5e9;
+    padding: 14px 16px;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 1rem;
-    cursor: pointer;
-    position: relative;
-    user-select: none;
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+}
+.quote-form input::placeholder,
+.quote-form textarea::placeholder {
+    color: var(--text-secondary);
 }
 
+/* Focus state for inputs */
+.quote-form input:focus,
+.quote-form textarea:focus,
+.quote-form select:focus,
+.select-box:focus-within {
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 0 4px var(--accent-orange-focus);
+}
+
+/* --- 5. SPECIFIC FORM ELEMENTS --- */
+.phone-group { display: flex; gap: 10px; }
+.phone-group select { flex: 0 0 110px; }
+.phone-group input { flex: 1; }
+
+.multi-select-container { position: relative; }
+.select-box { cursor: pointer; user-select: none; }
 .select-box::after {
-    content: '\25BC';
+    content: '▼';
     position: absolute;
     top: 50%;
-    right: 15px;
+    right: 16px;
     transform: translateY(-50%);
-    font-size: 0.8rem;
-    color: #666;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    transition: transform 0.2s ease;
 }
-
+.multi-select-container:focus-within .select-box::after,
+.select-box:hover::after {
+    transform: translateY(-50%) rotate(180deg);
+}
 .checkbox-options {
     display: none;
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
-    background: #fff;
-    border: 1px solid #e1e5e9;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     z-index: 10;
     max-height: 200px;
     overflow-y: auto;
-    margin-top: 4px;
+    margin-top: 8px;
+    padding: 5px;
 }
-
-.checkbox-options.active {
-    display: block;
-}
-
+.checkbox-options.active { display: block; }
 .checkbox-options label {
-    display: block;
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+    display: flex; align-items: center; padding: 10px;
+    cursor: pointer; transition: background-color 0.2s ease; border-radius: 6px;
 }
+.checkbox-options label:hover { background-color: var(--dark-bg); }
+.checkbox-options label input { margin-right: 12px; width: auto; }
 
-.checkbox-options label:hover {
-    background-color: #f4f4f4;
-}
-
-.checkbox-options label input {
-    margin-right: 10px;
-    width: auto;
-}
-
-.submit-quote-btn {
-    width: 100%;
-    background-color: #FA8E41;
-    color: white;
-    border: 2px solid #FA8E41;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.submit-quote-btn:hover {
-    background-color: transparent;
-    color: #000;
-    border: 2px solid #000000;
-}
-
+/* --- 6. MESSAGES & VALIDATION --- */
 .error-message-quote {
-    color: #dc3545;
-    font-size: 0.85rem;
-    margin-top: 5px;
-    display: none;
+    color: var(--error-red); font-size: 0.875rem; font-weight: 500;
+    margin-top: 8px; display: none;
 }
-
 #charCounterQuote {
-    font-size: 0.8rem;
-    color: #6c757d;
-    text-align: right;
-    margin-top: 5px;
+    font-size: 0.8rem; color: var(--text-secondary);
+    text-align: right; margin-top: 8px;
 }
-
-.quote-form input.valid,
-.quote-form textarea.valid {
-    border-color: #FA8E41;
-}
-
-.quote-form input.invalid,
-.quote-form textarea.invalid {
-    border-color: #dc3545;
-}
+.quote-form .invalid { border-color: var(--error-red) !important; }
+.quote-form .valid { border-color: var(--success-green) !important; }
 
 .success-message-quote {
-    background: #d4edda;
-    color: #155724;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    display: none;
-    text-align: center;
+    background: rgba(40, 167, 69, 0.1);
+    color: #a3e9a4;
+    font-weight: 500; padding: 15px; border-radius: 8px;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+    margin-bottom: 20px; display: none; text-align: center;
 }
+
+/* --- 7. SUBMIT BUTTON --- */
+/* As requested, no styles are applied to the submit button.
+   It will retain its original orange gradient look.
+   You may need to add a margin-top to it if it looks too close
+   to the element above it. Example:
+   .submit-build-button { margin-top: 15px; }
+*/
+
+
+
+
+/* --- 7. SUBMIT BUTTON: The primary call-to-action --- */
+
+
 
 /* ADD THIS to styles.css to create the full-card blur effect */
 
@@ -4078,3 +4045,275 @@ body {
 }
 
 
+
+/* Let's Build Button with Enhanced Shadow */
+.build-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px 25px;
+    
+    /* Button Fill - Orange Gradient */
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+    
+    /* Button Stroke */
+    border: 3px solid #FF8C42;
+    border-radius: 25px;
+    
+    /* Text Styling */
+    color: #FFFFFF;
+    font-size: 24px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    
+    /* Enhanced drop shadow */
+    box-shadow: 
+        0 0 0 rgba(255, 107, 53, 1),
+        0 2px 4px rgba(255, 107, 53, 0.5),
+        0 4px 12px rgba(255, 107, 53, 0.3),
+        0 8px 24px rgba(255, 107, 53, 0.1);
+    
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    /* Font family for better text rendering */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.build-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 0 0 rgba(255, 107, 53, 1),
+        0 6px 12px rgba(255, 107, 53, 0.6),
+        0 12px 24px rgba(255, 107, 53, 0.4),
+        0 16px 32px rgba(255, 107, 53, 0.2);
+}
+
+.build-button:active {
+    transform: translateY(-1px);
+    box-shadow: 
+        0 0 0 rgba(255, 107, 53, 1),
+        0 3px 6px rgba(255, 107, 53, 0.5),
+        0 6px 15px rgba(255, 107, 53, 0.3),
+        0 12px 24px rgba(255, 107, 53, 0.15);
+}
+
+/* Lightbulb Icon Styling */
+.build-icon {
+    width: 26px;
+    height: 26px;
+    fill: currentColor;
+}
+
+/* Optional: Focus state for accessibility */
+.build-button:focus {
+    outline: none;
+    box-shadow: 
+        0 0 0 3px rgba(255, 107, 53, 0.3),
+        0 0 0 rgba(255, 107, 53, 1),
+        0 2px 4px rgba(255, 107, 53, 0.5),
+        0 4px 12px rgba(255, 107, 53, 0.3),
+        0 8px 24px rgba(255, 107, 53, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .build-button {
+        padding: 16px 32px;
+        font-size: 20px;
+        gap: 10px;
+    }
+    
+    .build-icon {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .build-button {
+        padding: 14px 28px;
+        font-size: 18px;
+        gap: 8px;
+    }
+    
+    .build-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+/* Add this CSS to enable the button animation */
+
+
+
+/* Animation state - button becomes visible and slides up */
+.build-button.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Make sure hover/active states work with the animation */
+.build-button.animate-in:hover {
+    transform: translateY(-3px);
+    transform: translateY(-3px);
+    box-shadow: 
+        0 0 0 rgba(255, 107, 53, 1),
+        0 6px 12px rgba(255, 107, 53, 0.6),
+        0 12px 24px rgba(255, 107, 53, 0.4),
+        0 16px 32px rgba(255, 107, 53, 0.2);
+    /* ... rest of your hover styles ... */
+}
+
+.build-button.animate-in:active {
+    transform: translateY(-1px);
+     box-shadow: 
+        0 0 0 rgba(255, 107, 53, 1),
+        0 3px 6px rgba(255, 107, 53, 0.5),
+        0 6px 15px rgba(255, 107, 53, 0.3),
+        0 12px 24px rgba(255, 107, 53, 0.15);
+    /* ... rest of your active styles ... */
+}
+/* Add this new code block to styles.css */
+
+/* 1. This is the button's STARTING state: invisible and slightly moved down. */
+
+
+.submit-build-button {
+    position: relative;
+    display: flex;              /* Changed from inline-flex to flex */
+    width: 100%;               /* Added - makes button full width */
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px 20px;
+    
+    /* Button Fill - Orange Gradient */
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+    
+    /* Button Stroke */
+    border: 3px solid #FF8C42;
+    border-radius: 25px;
+    
+    /* Text Styling */
+    color: #FFFFFF;
+    font-size: 24px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    
+    /* Enhanced drop shadow */
+    box-shadow: 
+        0 0 0 rgba(255, 107, 53, 1),
+        0 2px 4px rgba(255, 107, 53, 0.5),
+        0 4px 12px rgba(255, 107, 53, 0.3),
+        0 8px 24px rgba(255, 107, 53, 0.1);
+    
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    /* Font family for better text rendering */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.submit-build-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 0 0 rgba(255, 107, 53, 1),
+        0 6px 12px rgba(255, 107, 53, 0.6),
+        0 12px 24px rgba(255, 107, 53, 0.4),
+        0 16px 32px rgba(255, 107, 53, 0.2);
+}
+
+.submit-build-button:active {
+    transform: translateY(-1px);
+    box-shadow: 
+        0 0 0 rgba(255, 107, 53, 1),
+        0 3px 6px rgba(255, 107, 53, 0.5),
+        0 6px 15px rgba(255, 107, 53, 0.3),
+        0 12px 24px rgba(255, 107, 53, 0.15);
+}
+
+/* Optional: Focus state for accessibility */
+.submit-build-button:focus {
+    outline: none;
+    box-shadow: 
+        0 0 0 3px rgba(255, 107, 53, 0.3),
+        0 0 0 rgba(255, 107, 53, 1),
+        0 2px 4px rgba(255, 107, 53, 0.5),
+        0 4px 12px rgba(255, 107, 53, 0.3),
+        0 8px 24px rgba(255, 107, 53, 0.1);
+}
+
+
+.footer-submit-build-button {
+    position: relative;
+    display: inline-flex;              /* Changed from inline-flex to flex */              /* Added - makes button full width */
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px 25px;
+    
+    /* Button Fill - Orange Gradient */
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+    
+    /* Button Stroke */
+    border: 3px solid #FF8C42;
+    border-radius: 25px;
+    
+    /* Text Styling */
+    color: #FFFFFF;
+    font-size: 24px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    
+    /* Enhanced drop shadow */
+    box-shadow: 
+        0 0 0 rgba(255, 107, 53, 1),
+        0 2px 4px rgba(255, 107, 53, 0.5),
+        0 4px 12px rgba(255, 107, 53, 0.3),
+        0 8px 24px rgba(255, 107, 53, 0.1);
+    
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    /* Font family for better text rendering */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.footer-submit-build-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 0 0 rgba(255, 107, 53, 1),
+        0 6px 12px rgba(255, 107, 53, 0.6),
+        0 12px 24px rgba(255, 107, 53, 0.4),
+        0 16px 32px rgba(255, 107, 53, 0.2);
+}
+
+.footer-submit-build-button:active {
+    transform: translateY(-1px);
+    box-shadow: 
+        0 0 0 rgba(255, 107, 53, 1),
+        0 3px 6px rgba(255, 107, 53, 0.5),
+        0 6px 15px rgba(255, 107, 53, 0.3),
+        0 12px 24px rgba(255, 107, 53, 0.15);
+}
+
+/* Optional: Focus state for accessibility */
+.footer-submit-build-button:focus {
+    outline: none;
+    box-shadow: 
+        0 0 0 3px rgba(255, 107, 53, 0.3),
+        0 0 0 rgba(255, 107, 53, 1),
+        0 2px 4px rgba(255, 107, 53, 0.5),
+        0 4px 12px rgba(255, 107, 53, 0.3),
+        0 8px 24px rgba(255, 107, 53, 0.1);
+}
+
+/* Add this to your styles.css file for better form UX */
