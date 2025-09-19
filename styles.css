@@ -1610,7 +1610,7 @@ body {
         0 2.289px 8.696px -2.5px rgba(0, 0, 0, 0.16),
         0 10px 38px -3.75px rgba(0, 0, 0, 0.06);
     overflow: hidden;
-    min-height: 1612px;
+    min-height: auto;
     opacity: 0;
     transform: translateY(60px);
     transition: all 0.8s ease-out;
@@ -2924,9 +2924,6 @@ body {
     display: flex;
     align-items: center;
     gap: 4.5rem;
-    /* More space between logos */
-    animation: marquee-scroll 28s linear infinite;
-    /* Slower for bigger logos */
     will-change: transform;
 }
 
@@ -3316,25 +3313,14 @@ body {
     }
 
     .process-step {
-        width: 28px;
+        width: 48px;
         gap: 1px;
     }
 
-    .process-icon {
-        width: 28px;
-        height: 28px;
-        border-radius: 5px;
-    }
+  
+   
 
-    .process-icon svg {
-        width: 10px;
-        height: 10px;
-    }
-
-    .process-label {
-        font-size: 7px;
-        line-height: 9px;
-    }
+   
 
     .experience-services {
         gap: 4px;
@@ -3555,15 +3541,6 @@ body {
         display: none;
     }
 
-    /* Always show title with dark color for readability */
-    .work-card-title {
-        color: #ffffff;
-        opacity: 1;
-        transform: none;
-        margin-bottom: 16px;
-        font-size: 18px;
-        line-height: 1.3;
-    }
 
     /* Always show button */
     .case-study-button {
@@ -3660,7 +3637,7 @@ body {
         opacity: 1;
         transform: none;
         margin-bottom: 16px;
-        font-size: 18px;
+        font-size: 1rem;
         line-height: 1.3;
     }
 

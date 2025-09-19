@@ -24,7 +24,8 @@
         initializeQuoteForm();
         initializeLightbox();
         initializeAboutScrollSpy(); // <--- ADD THIS LINE
-        initializeBurgerMenu(); 
+        initializeBurgerMenu();
+        initializeMarquee();
     }
 
     // =================================================================
@@ -261,24 +262,25 @@
         });
     }
     function initializeBurgerMenu() {
-    const burgerButton = document.getElementById('burger-menu-button');
-    const navMenu = document.querySelector('.nav-menu');
+        const burgerButton = document.getElementById('burger-menu-button');
+        const navMenu = document.querySelector('.nav-menu');
 
-    // Make sure both elements exist before adding listeners
-    if (burgerButton && navMenu) {
-        burgerButton.addEventListener('click', () => {
-            // Toggle the .is-open class on the navigation menu
-            navMenu.classList.toggle('is-open');
-        });
+        // Make sure both elements exist before adding listeners
+        if (burgerButton && navMenu) {
+            burgerButton.addEventListener('click', () => {
+                // Toggle the .is-open class on the navigation menu
+                navMenu.classList.toggle('is-open');
+            });
 
-        // Optional: Close the menu when a link is clicked
-        navMenu.addEventListener('click', (e) => {
-            if (e.target.closest('a')) {
-                navMenu.classList.remove('is-open');
-            }
-        });
+            // Optional: Close the menu when a link is clicked
+            navMenu.addEventListener('click', (e) => {
+                if (e.target.closest('a')) {
+                    navMenu.classList.remove('is-open');
+                }
+            });
+        }
     }
-}
+    
 
     // =================================================================
     // == NEW QUOTE FORM LOGIC
@@ -605,3 +607,64 @@
     }
 
 })();
+
+// REPLACE the old initializeMarquee function with this new one
+
+function initializeMarquee() {
+    const track = document.querySelector('.brands-marquee-track');
+    if (!track) return;
+
+    // --- You can change this value. Higher number = faster scroll ---
+    const speed = 80; // pixels per second
+
+    // --- 1. Duplicate logos for a seamless loop ---
+    const originalLogos = Array.from(track.children);
+    originalLogos.forEach(logo => {
+        const clone = logo.cloneNode(true);
+        track.appendChild(clone);
+    });
+
+    // --- 2. Calculate width and set animation ---
+    let singleSetWidth = 0;
+    const logos = track.querySelectorAll('.brand-logo');
+    if (logos.length === 0) return;
+
+    // The number of original logos
+    const originalLogoCount = logos.length / 2;
+
+    for (let i = 0; i < originalLogoCount; i++) {
+        const style = window.getComputedStyle(logos[i]);
+        const marginRight = parseFloat(style.marginRight) || 0;
+        const marginLeft = parseFloat(style.marginLeft) || 0;
+        singleSetWidth += logos[i].offsetWidth + marginLeft + marginRight;
+    }
+
+    const trackStyle = window.getComputedStyle(track);
+    const gap = parseFloat(trackStyle.gap) || 0;
+    singleSetWidth += (originalLogoCount - 1) * gap;
+
+    const duration = singleSetWidth / speed;
+    
+    // Set the keyframes for a perfect loop
+    const keyframes = `
+        @keyframes dynamic-marquee-scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-${singleSetWidth}px);
+            }
+        }
+    `;
+
+    // Check if the style tag already exists
+    let styleElement = document.getElementById('marquee-styles');
+    if (!styleElement) {
+        styleElement = document.createElement('style');
+        styleElement.id = 'marquee-styles';
+        document.head.appendChild(styleElement);
+    }
+    
+    styleElement.innerHTML = keyframes;
+    track.style.animation = `dynamic-marquee-scroll ${duration}s linear infinite`;
+}
