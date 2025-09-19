@@ -24,6 +24,7 @@
         initializeQuoteForm();
         initializeLightbox();
         initializeAboutScrollSpy(); // <--- ADD THIS LINE
+        initializeBurgerMenu(); 
     }
 
     // =================================================================
@@ -259,6 +260,25 @@
             observer.observe(section);
         });
     }
+    function initializeBurgerMenu() {
+    const burgerButton = document.getElementById('burger-menu-button');
+    const navMenu = document.querySelector('.nav-menu');
+
+    // Make sure both elements exist before adding listeners
+    if (burgerButton && navMenu) {
+        burgerButton.addEventListener('click', () => {
+            // Toggle the .is-open class on the navigation menu
+            navMenu.classList.toggle('is-open');
+        });
+
+        // Optional: Close the menu when a link is clicked
+        navMenu.addEventListener('click', (e) => {
+            if (e.target.closest('a')) {
+                navMenu.classList.remove('is-open');
+            }
+        });
+    }
+}
 
     // =================================================================
     // == NEW QUOTE FORM LOGIC

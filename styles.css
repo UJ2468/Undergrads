@@ -106,14 +106,16 @@ body {
     text-align: left;
 }
 
+/* REPLACE your old .nav-link rule with this one */
 .nav-link {
+    display: flex;         /* CHANGED from 'block' */
+    align-items: center;   /* ADDED to vertically align icon and text */
     font-size: 1rem;
     font-weight: 400;
     color: #3b3b3b;
     text-decoration: none;
     padding: 0.25rem 0;
     transition: all 0.3s ease;
-    display: block;
     opacity: 0.8;
     background: transparent !important;
     box-shadow: none !important;
@@ -146,6 +148,19 @@ body {
     border: none !important;
     padding: 0.25rem 0 !important;
     margin: 0 !important;
+}
+/* ADD this new rule for the icon styling */
+.nav-link i {
+    margin-right: 12px;
+    width: 20px;
+    text-align: center;
+    color: #888888; /* A neutral color for the icons */
+    transition: color 0.3s ease;
+}
+
+/* Make the active link's icon match the text color */
+.nav-link.active i {
+    color: #FA5C40; 
 }
 
 /* Call-to-Action */
@@ -356,7 +371,7 @@ body {
     transform: translateX(-50%);
     z-index: 100;
     display: block !important;
-    max-width: 80px;
+    max-width: 150px;
     height: auto;
     object-fit: contain;
     /* filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2)); */
@@ -1091,29 +1106,7 @@ body {
 
 
 /* Responsive Design for Overlapped Layout */
-@media (max-width: 1400px) {
 
-    /* Hide sun logo and show sidebar logo */
-    .logo-image {
-        display: none !important;
-    }
-
-    .sidebar-logo-image {
-        display: block;
-    }
-
-    .nav-menu {
-        display: none;
-    }
-
-    /* Adjust left sidebar positioning for logo only */
-    .left-sidebar {
-        padding: 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-}
 
 @media (max-width: 1024px) {
     .left-sidebar {
@@ -3482,13 +3475,14 @@ body {
 
     /* Button adjustments for better touch targets */
     .service-button {
-        padding: 12px 18px;
-        width: 100%;
-        max-width: 200px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+    width: 100%;
+    max-width: 200px;
+    display: flex;
+    justify-content: space-between; /* <-- This is the FIX */
+    align-items: center;
+    /* We also use the original padding to keep the alignment consistent */
+    padding: 2px 2px 2px 24px; 
+}
 
     /* Additional small screen adjustments */
     @media screen and (max-width: 600px) {
@@ -4317,3 +4311,97 @@ body {
 }
 
 /* Add this to your styles.css file for better form UX */
+/* =================================================================== */
+/* ============= CSS FOR RESPONSIVE BURGER MENU ==================== */
+/* =================================================================== */
+
+/* 1. Style the burger button itself */
+/* =================================================================== */
+/* ============= NEW - GLASS EFFECT BURGER MENU ==================== */
+/* =================================================================== */
+
+/* 1. Default state (DESKTOP): The burger is HIDDEN */
+.burger-menu {
+    display: none; /* This is the critical fix - it's hidden by default */
+    
+    /* Glassmorphism Effect */
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* The "frosted glass" effect */
+    -webkit-backdrop-filter: blur(10px); /* For Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle edge highlight */
+    border-radius: 50%; /* Perfectly round */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+
+    /* Sizing and Positioning */
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 1001;
+
+    /* Icon and Interaction */
+    font-size: 1.4rem;
+    color: #000000; /* White icon for better contrast */
+    cursor: pointer;
+    align-items: center; /* These are for centering the icon inside */
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.burger-menu:hover {
+    background: rgba(255, 255, 255, 0.2); /* Brighter on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.burger-menu:active {
+    transform: scale(0.95); /* "Press in" effect */
+    background: rgba(255, 255, 255, 0.25);
+}
+
+
+/* 2. Responsive state (MOBILE/TABLET): The burger is VISIBLE */
+@media (max-width: 992px) {
+    .burger-menu {
+        display: flex; /* This makes it visible ONLY on smaller screens */
+    }
+}
+
+/* 2. Responsive styles for screens 992px wide or smaller */
+@media (max-width: 992px) {
+    /* Show the burger button */
+    .burger-menu {
+        display: block;
+    }
+
+    /* Adjust the sidebar to be a container for the pop-out menu */
+    .left-sidebar {
+        /* You might need to adjust positioning if it overlaps content */
+    }
+
+    /* Hide the navigation menu by default off-screen to the left */
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px; /* Width of the slide-out menu */
+        height: 100%;
+        background: white;
+        box-shadow: 4px 0px 15px rgba(0,0,0,0.1);
+        padding: 80px 20px 20px; /* Add padding at the top for spacing */
+        
+        /* Smooth transition for the slide-in/out effect */
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    /* The 'is-open' class will be toggled by JavaScript */
+    .nav-menu.is-open {
+        transform: translateX(0); /* Slides the menu into view */
+    }
+}
+
+
+
+
