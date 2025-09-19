@@ -3557,7 +3557,7 @@ body {
 
     /* Always show title with dark color for readability */
     .work-card-title {
-        color: #333;
+        color: #ffffff;
         opacity: 1;
         transform: none;
         margin-bottom: 16px;
