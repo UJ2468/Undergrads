@@ -383,7 +383,7 @@ body {
     position: relative;
     z-index: 10;
     text-align: center;
-    padding: 4rem 0;
+    padding-top: 4rem;
     margin-top: 13rem;
     /* Added margin to lower the content */
 }
@@ -2883,7 +2883,7 @@ body {
 .brands-marquee-section {
     width: 100%;
     background: #fff;
-    padding: 4.5rem 0 3rem 0;
+    padding: 1rem 0 3rem 0;
     /* Increased vertical padding */
     display: flex;
     flex-direction: column;
@@ -2980,7 +2980,7 @@ body {
     }
 
     .brands-marquee-section {
-        padding: 3rem 0 2rem 0;
+        padding: 1rem 0 2rem 0;
     }
 }
 
@@ -3003,7 +3003,7 @@ body {
     }
 
     .brands-marquee-section {
-        padding: 2rem 0 1.25rem 0;
+        padding: 1rem 0 1.25rem 0;
     }
 }
 
