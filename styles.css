@@ -390,7 +390,7 @@ body {
 
 .main-heading {
     font-family: 'Lustria', serif;
-    font-size: clamp(2.5rem, 7vw, 5rem); 
+    font-size: clamp(2.1rem, 7vw, 5rem); 
     /* Responsive font size */
     font-weight: 400;
     line-height: 1.1;
@@ -1065,6 +1065,16 @@ body {
     /* Slower, slight delay */
 }
 
+.about-main-title {
+    font-family: 'Lustria', serif;
+ 
+    font-weight: 400;
+  
+    letter-spacing: -1px;
+    text-transform: capitalize;
+    margin: 0;
+}
+
 @keyframes headingRiseBlurIn {
     0% {
         opacity: 0;
@@ -1642,16 +1652,6 @@ body {
     /* margin-bottom: 64px; */
 }
 
-.about-main-title {
-    font-family: 'Lustria', serif;
-    font-size: 48px;
-    font-weight: 400;
-    line-height: 57.6px;
-    letter-spacing: -1px;
-    text-transform: capitalize;
-    margin: 0;
-}
-
 .title-part-main {
     color: rgba(0, 0, 0, 0.8);
 }
@@ -1696,9 +1696,9 @@ body {
 .about-nav-link {
     display: block;
     font-family: 'Inter', sans-serif;
-    font-size: 30px;
+    
     font-weight: 400;
-    line-height: 42px;
+    
     letter-spacing: -1.2px;
     color: rgba(0, 0, 0, 0.8);
     text-decoration: none;
@@ -1746,9 +1746,9 @@ body {
 
 .about-description {
     font-family: 'Inter', sans-serif;
-    font-size: 24px;
+   
     font-weight: 400;
-    line-height: 36px;
+    
     letter-spacing: -0.32px;
     color: rgba(0, 0, 0, 0.8);
     margin: 0;
@@ -1929,8 +1929,7 @@ body {
     }
 
     .about-main-title {
-        font-size: 42px;
-        line-height: 50.4px;
+        
     }
 
 
@@ -1964,8 +1963,6 @@ body {
     }
 
     .about-nav-link {
-        font-size: 24px;
-        line-height: 32px;
     }
 
     .about-main-content {
@@ -2023,8 +2020,7 @@ body {
     }
 
     .about-main-title {
-        font-size: 32px;
-        line-height: 38.4px;
+        
         text-align: center;
     }
 
@@ -2035,14 +2031,10 @@ body {
     }
 
     .about-nav-link {
-        font-size: 20px;
-        line-height: 28px;
         text-align: center;
     }
 
     .about-description {
-        font-size: 18px;
-        line-height: 27px;
         text-align: center;
     }
 
@@ -2076,18 +2068,13 @@ body {
 
 @media (max-width: 480px) {
     .about-main-title {
-        font-size: 24px;
-        line-height: 28.8px;
     }
 
     .about-nav-link {
-        font-size: 18px;
-        line-height: 24px;
     }
 
     .about-description {
-        font-size: 16px;
-        line-height: 24px;
+        
     }
 
     .stat-number {
@@ -3082,8 +3069,6 @@ body {
     }
 
     .about-description {
-        font-size: 18px;
-        line-height: 28px;
         text-align: center;
     }
 
@@ -3185,20 +3170,15 @@ body {
 /* Tablet and below (900px) */
 @media (max-width: 900px) {
     .about-main-title {
-        font-size: 28px;
-        line-height: 34px;
+        
         text-align: center;
     }
 
     .about-nav-link {
-        font-size: 16px;
-        line-height: 22px;
         min-width: 60px;
     }
 
     .about-description {
-        font-size: 15px;
-        line-height: 22px;
     }
 
     .stat-number {
@@ -3266,8 +3246,6 @@ body {
     }
 
     .about-main-title {
-        font-size: 18px;
-        line-height: 22px;
         text-align: center;
     }
 
@@ -3276,8 +3254,6 @@ body {
     }
 
     .about-nav-link {
-        font-size: 12px;
-        line-height: 16px;
         min-width: 40px;
         padding: 4px 0;
     }
@@ -3288,8 +3264,6 @@ body {
     }
 
     .about-description {
-        font-size: 12px;
-        line-height: 16px;
     }
 
     .about-stats {
@@ -3328,7 +3302,7 @@ body {
     }
 
     .service-tag {
-        padding: 2px 4px;
+        
         font-size: 8px;
         border-radius: 8px;
         gap: 2px;
@@ -3340,7 +3314,7 @@ body {
     }
 
     .service-tag span {
-        font-size: 8px;
+        font-size: 10px;
     }
 
     .experience-logos {
@@ -4380,5 +4354,55 @@ body {
 }
 
 
+/* =================================================================== */
+/* ============= FLUID FONT SCALING FOR EXPERIENCE SECTION ======== */
+/* =================================================================== */
 
+/* For the main section title "Partner For Digital Solutions" */
+.about-main-title {
+    /* min size: 1.75rem, scales at 5vw, max size: 3rem (48px) */
+    font-size: clamp(1.75rem, 5vw, 3rem);
+    line-height: 1.2; /* Add a consistent line-height */
+}
 
+/* For the navigation links: About, Process, Implementation */
+.about-nav-link {
+    /* min size: 1.1rem, scales at 4vw, max size: 1.875rem (30px) */
+    font-size: clamp(1.1rem, 4vw, 1.875rem);
+    line-height: 1.4; /* Add a consistent line-height */
+}
+
+/* For the main paragraph text */
+.about-description {
+    /* min size: 1rem (16px), scales at 2.5vw, max size: 1.5rem (24px) */
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    line-height: 1.6; /* Add a consistent line-height */
+}
+
+/* Optional: Minor adjustment for smaller stats text on mobile */
+@media (max-width: 600px) {
+    .stat-number {
+        font-size: clamp(1.25rem, 4vw, 1.75rem);
+    }
+    .stat-label {
+        font-size: clamp(0.75rem, 2vw, 0.875rem);
+    }
+}
+
+/* =================================================================== */
+/* ============= MOBILE SIZE FIX FOR CASE STUDY BUTTON ============= */
+/* =================================================================== */
+
+@media (max-width: 768px) {
+    .case-study-button {
+        padding: 10px 16px 10px 20px; /* Reduced padding for a smaller size */
+        font-size: 14px;             /* Slightly smaller text */
+        gap: 8px;                    /* Less space between text and arrow */
+    }
+
+    .button-arrow {
+        /* Make the arrow circle smaller to match the button */
+        width: 28px;
+        height: 28px;
+    }
+}

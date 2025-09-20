@@ -1111,7 +1111,14 @@
                     Request sent successfully! We'll be in touch shortly.
                 </div>
 
-                <form id="quoteForm" class="quote-form" novalidate>
+                <!-- Remember to replace the action URL with your real one from Formspree -->
+                <form id="quoteForm" class="quote-form" method="POST" action="https://your-form-endpoint-url.com"
+                    novalidate>
+
+                    <!-- 1. THIS IS THE NEW HIDDEN FIELD TO CAPTURE THE SERVICE NAME -->
+                    <input type="hidden" name="selected_service" id="selectedServiceInput">
+
+                    <!-- These fields were already here -->
                     <input type="text" name="website" style="display: none;" tabindex="-1">
                     <input type="hidden" name="token" value="">
 
@@ -1125,11 +1132,19 @@
                     </div>
                     <div class="form-group">
                         <div class="phone-group">
+
+                            <!-- 2. HERE IS THE EXPANDED LIST OF COUNTRY CODES -->
                             <select name="country_code" required>
-                                <option value="">Select</option>
+                                <option value="">Code</option>
                                 <option value="+91">🇮🇳 +91</option>
                                 <option value="+1">🇺🇸 +1</option>
+                                <option value="+1">🇨🇦 +1</option>
                                 <option value="+44">🇬🇧 +44</option>
+                                <option value="+61">🇦🇺 +61</option>
+                                <option value="+971">🇦🇪 +971</option>
+                                <option value="+65">🇸🇬 +65</option>
+                                <option value="+49">🇩🇪 +49</option>
+                                <!-- You can add more countries here in the same format -->
                             </select>
                             <input type="tel" name="phone" placeholder="WhatsApp Number *" required>
                         </div>

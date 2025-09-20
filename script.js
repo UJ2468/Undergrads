@@ -280,7 +280,7 @@
             });
         }
     }
-    
+
 
     // =================================================================
     // == NEW QUOTE FORM LOGIC
@@ -360,16 +360,27 @@
             openQuoteModal(serviceItem) {
                 const quoteOverlay = document.getElementById('quoteOverlay');
                 const selectedProduct = document.getElementById('selectedProduct');
-                if (!quoteOverlay || !selectedProduct) return;
+
+                // THIS IS THE LINE THAT WAS MISSING
+                const hiddenInput = document.getElementById('selectedServiceInput');
+
+                // I've also updated this check to include the new hiddenInput
+                if (!quoteOverlay || !selectedProduct || !hiddenInput) return;
 
                 if (serviceItem) {
                     selectedProduct.style.display = 'block';
                     const title = serviceItem.querySelector('.service-title')?.textContent || 'Selected Service';
                     const description = serviceItem.querySelector('.service-description')?.textContent || 'Please provide details below.';
                     selectedProduct.innerHTML = `<h4>${title.trim()}</h4><p>${description.trim()}</p>`;
+
+                    hiddenInput.value = title.trim(); // This will now work
+
                 } else {
                     selectedProduct.innerHTML = '';
                     selectedProduct.style.display = 'none';
+
+                    // This will also now work
+                    hiddenInput.value = 'General Inquiry';
                 }
 
                 quoteOverlay.classList.add('active');
@@ -412,16 +423,59 @@
                 if (!quoteForm) return;
 
                 quoteForm.addEventListener('submit', (e) => {
-                    e.preventDefault(); // Prevent the form from submitting immediately
+                    e.preventDefault(); // Prevent the default form submission
+
                     const isValid = this.validateForm(quoteForm);
+                    const submitButton = quoteForm.querySelector('button[type="submit"]');
 
                     if (isValid) {
-                        // If the form is valid, you can proceed with submission here.
-                        // For now, we'll just log it and show a success message.
-                        console.log('Form is valid and would be submitted.');
-                        this.showSuccessMessage();
+                        // --- START OF NEW CODE ---
+
+                        // 1. Get form data
+                        const formData = new FormData(quoteForm);
+                        const formProps = Object.fromEntries(formData);
+
+                        // 2. Disable the button and show a loading state
+                        if (submitButton) {
+                            submitButton.disabled = true;
+                            submitButton.textContent = 'Sending...';
+                        }
+
+                        // 3. Send the data using fetch to your form endpoint
+                        fetch('https://formspree.io/f/mgvlgpgq', { // <--- PASTE YOUR URL HERE
+                            method: 'POST',
+                            body: JSON.stringify(formProps),
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            }
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    // If submission is successful, show the success message
+                                    this.showSuccessMessage();
+                                } else {
+                                    // If there was a server error, show an alert
+                                    alert('Oops! There was a problem submitting your form. Please try again later.');
+                                }
+                            })
+                            .catch(error => {
+                                // If there was a network error, show an alert
+                                console.error('Submission Error:', error);
+                                alert('Oops! There was a network error. Please check your connection and try again.');
+                            })
+                            .finally(() => {
+                                // Re-enable the button after submission attempt
+                                if (submitButton) {
+                                    submitButton.disabled = false;
+                                    submitButton.textContent = 'SUBMIT';
+                                }
+                            });
+
+                        // --- END OF NEW CODE ---
+
                     } else {
-                        console.log('Form has errors.');
+                        console.log('Form has validation errors.');
                     }
                 });
             }
@@ -644,7 +698,7 @@ function initializeMarquee() {
     singleSetWidth += (originalLogoCount - 1) * gap;
 
     const duration = singleSetWidth / speed;
-    
+
     // Set the keyframes for a perfect loop
     const keyframes = `
         @keyframes dynamic-marquee-scroll {
@@ -664,7 +718,7 @@ function initializeMarquee() {
         styleElement.id = 'marquee-styles';
         document.head.appendChild(styleElement);
     }
-    
+
     styleElement.innerHTML = keyframes;
     track.style.animation = `dynamic-marquee-scroll ${duration}s linear infinite`;
 }
